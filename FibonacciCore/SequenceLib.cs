@@ -59,7 +59,7 @@ public static class SequenceLib
     }
 
     /// <summary>
-    /// Calculate Fibonacci number using Matrix Exponentiation
+    /// Calculate Fibonacci number using Matrix Exponentiation ( https://www.nayuki.io/page/fast-fibonacci-algorithms )
     /// </summary>
     /// <param name="n"></param>
     /// <returns></returns>
