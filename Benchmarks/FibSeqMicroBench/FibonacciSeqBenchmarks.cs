@@ -6,7 +6,7 @@ namespace FibSeqMicroBench;
 [SimpleJob(RunStrategy.Throughput)]
 public class FibonacciSeqBenchmarks
 {
-    [Params(1, 3, 5, 10, 20)]
+    [Params(1, 3, 5, 10, 20, 50)]
     public int Nth { get; set; }
     
     [Benchmark(Baseline = true), BenchmarkCategory("simple")]
