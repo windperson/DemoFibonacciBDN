@@ -3,7 +3,7 @@ using BenchmarkDotNet.Engines;
 
 namespace FibSeqMicroBench;
 
-[SimpleJob(RunStrategy.Throughput, launchCount: 1)]
+[SimpleJob(RunStrategy.Throughput)]
 public class FibonacciSeqBenchmarks
 {
     [Params(1, 3, 5, 10, 20)]
