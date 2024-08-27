@@ -9,3 +9,4 @@ riderModule.iml
 /Benchmarks/**/*.md
 /Benchmarks/**/*.html
 /BenchmarkDotNet.Artifacts/**/*
+*.sln.DotSettings.user

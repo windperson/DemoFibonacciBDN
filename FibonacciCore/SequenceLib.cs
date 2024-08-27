@@ -19,7 +19,7 @@ public static class SequenceLib
             var b = 1L;
             var result = 0L;
 
-            for (int i = 2; i <= n; i++)
+            for (var i = 2; i <= n; i++)
             {
                 result = a + b;
                 a = b;
@@ -46,6 +46,8 @@ public static class SequenceLib
             return FibonacciUsingRecursion(n - 1) + FibonacciUsingRecursion(n - 2);
         }
     }
+    
+    private static readonly double Phi = (1 + Math.Sqrt(5)) / 2;
 
     /// <summary>
     /// Calculate Fibonacci number using Golden Ration approximation math formula
@@ -54,8 +56,7 @@ public static class SequenceLib
     /// <returns></returns>
     public static long FibonacciUsingGoldenRatio(int n)
     {
-        var phi = (1 + Math.Sqrt(5)) / 2;
-        return (long)(Math.Round(Math.Pow(phi, n) / Math.Sqrt(5)));
+        return Convert.ToInt64(Math.Pow(Phi, n) / Math.Sqrt(5));
     }
 
     /// <summary>

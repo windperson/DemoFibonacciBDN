@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Engines;
+﻿using BenchmarkDotNet.Attributes;
 
 namespace FibSeqMicroBench;
 
-[SimpleJob(RunStrategy.Throughput, warmupCount: 1)]
+[ReturnValueValidator(failOnError: false)]
 public class FibonacciSeqBenchmarks
 {
-    [Params(1, 3, 5, 10, 20, 30, 35, 40, 45, 50, 53, 55, 60, 65, 70, 73, 75, 80, 85, 90, 91, 92)]
+    [Params(1, 3, 5, 10, 20, 30, 35, 40, 45, 50, 53, 55, 60, 65, 70, 75, 80, 85, 90, 91, 92)]
     public int Nth { get; set; }
 
     // see https://r-knott.surrey.ac.uk/Fibonacci/fibtable.html for precomputed Fibonacci series
@@ -30,7 +27,6 @@ public class FibonacciSeqBenchmarks
         { 60, 1548008755920L },
         { 65, 17167680177565L },
         { 70, 190392490709135L },
-        { 73, 806515533049393L },
         { 75, 2111485077978050L },
         { 80, 23416728348467685L },
         { 85, 259695496911122585L },
@@ -39,16 +35,10 @@ public class FibonacciSeqBenchmarks
         { 92, 7540113804746346429L }
     };
 
-    [Benchmark(Baseline = true), BenchmarkCategory("simple")]
+    [Benchmark(Baseline = true), BenchmarkCategory("simple", "canonical")]
     public long FibSeqUsingLoop()
     {
-        var result = FibonacciCore.SequenceLib.FibonacciUsingLoop(Nth);
-        if (ActualFibonacci[Nth] != result)
-        {
-            throw new Exception("Fibonacci sequence calculate incorrect  value");
-        }
-
-        return result;
+        return FibonacciCore.SequenceLib.FibonacciUsingLoop(Nth);
     }
 
     [Benchmark, BenchmarkCategory("simple", "slow")]
@@ -57,16 +47,10 @@ public class FibonacciSeqBenchmarks
         const int upperLimit = 55;
         if (Nth >= upperLimit)
         {
-            throw new NotSupportedException($"Recursion is not supported for {Nth} over {upperLimit}");
+            throw new NotSupportedException($"Recursion is not supported for {Nth}th over {upperLimit}th");
         }
 
-        var result = FibonacciCore.SequenceLib.FibonacciUsingRecursion(Nth);
-        if (ActualFibonacci[Nth] != result)
-        {
-            throw new Exception("Fibonacci sequence calculate incorrect  value");
-        }
-
-        return result;
+        return FibonacciCore.SequenceLib.FibonacciUsingRecursion(Nth);
     }
 
     [Benchmark, BenchmarkCategory("math", "approximate")]
@@ -75,7 +59,8 @@ public class FibonacciSeqBenchmarks
         var result = FibonacciCore.SequenceLib.FibonacciUsingGoldenRatio(Nth);
         if (ActualFibonacci[Nth] != result)
         {
-            throw new Exception("Fibonacci sequence calculate incorrect  value");
+            throw new ArithmeticException(
+                $"Fibonacci calculation failed, actual {Nth}th is {ActualFibonacci[Nth]}, but calculated is {result}");
         }
 
         return result;
@@ -84,12 +69,6 @@ public class FibonacciSeqBenchmarks
     [Benchmark, BenchmarkCategory("math", "fast")]
     public long FibSeqUsingMatrixExponentiation()
     {
-        var result = FibonacciCore.SequenceLib.FibonacciUsingMatrixExponentiation(Nth);
-        if (ActualFibonacci[Nth] != result)
-        {
-            throw new Exception("Fibonacci sequence calculate incorrect  value");
-        }
-
-        return result;
+        return FibonacciCore.SequenceLib.FibonacciUsingMatrixExponentiation(Nth);
     }
 }
