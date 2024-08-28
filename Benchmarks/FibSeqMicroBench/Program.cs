@@ -12,7 +12,7 @@ class Program
     {
         var bdnConfig = ManualConfig.Create(DefaultConfig.Instance);
         bdnConfig.AddJob(
-            Job.MediumRun.WithStrategy(RunStrategy.Throughput)
+            Job.ShortRun.WithStrategy(RunStrategy.Throughput)
                 .WithWarmupCount(1)
                 .WithIterationCount(5)
                 .WithPowerPlan(PowerPlan.UserPowerPlan));
