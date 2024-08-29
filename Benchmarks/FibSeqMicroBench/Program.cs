@@ -13,8 +13,9 @@ class Program
         var bdnConfig = ManualConfig.Create(DefaultConfig.Instance);
         bdnConfig.AddJob(
             Job.ShortRun.WithStrategy(RunStrategy.Throughput)
-                .WithWarmupCount(1)
-                .WithIterationCount(5)
+                //.WithWarmupCount(1)
+                //.WithIterationCount(5)
+                .WithEnvironmentVariable(new EnvironmentVariable("RecursLimit", "53"))
                 .WithPowerPlan(PowerPlan.UserPowerPlan));
 
         BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args, bdnConfig);
