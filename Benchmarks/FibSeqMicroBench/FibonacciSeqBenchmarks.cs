@@ -1,9 +1,13 @@
 ﻿using System.Numerics;
 using System.Runtime.CompilerServices;
 using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Mathematics;
+using BenchmarkDotNet.Order;
 
 namespace FibSeqMicroBench;
 
+[Orderer(SummaryOrderPolicy.FastestToSlowest)]
+[RankColumn(NumeralSystem.Roman)]
 public class FibonacciSeqBenchmarks
 {
     [ParamsSource(nameof(NthValues))] public int Nth { get; set; }
