@@ -47,20 +47,29 @@ public static class SequenceLib
         }
     }
 
-    private static readonly double Phi = (1 + Math.Sqrt(5)) / 2;
-
     /// <summary>
     /// Calculate Fibonacci number using Golden Ration approximation math formula
+    /// https://www.wikihow.com/Calculate-the-Fibonacci-Sequence#Using-Binet.27s-Formula-and-the-Golden-Ratio
     /// </summary>
     /// <param name="n"></param>
     /// <returns></returns>
     public static BigInteger FibonacciUsingGoldenRatio(int n)
     {
-        return new BigInteger(Math.Round(Math.Pow(Phi, n) / Math.Sqrt(5)));
+        if (n <= 1)
+        {
+            return n;
+        }
+
+        // will be inaccurate after 70th Fibonacci number
+        // https://stackoverflow.com/questions/41938313/n-th-fibonacci-with-binets-formula-not-accurate-after-70#41938441
+        var phi = (1 + Math.Sqrt(5)) / 2;
+        var result = (Math.Pow(phi, n) - Math.Pow(1 - phi, n)) / Math.Sqrt(5);
+        return new BigInteger(Math.Round(result));
     }
 
     /// <summary>
-    /// Calculate Fibonacci number using Matrix Exponentiation ( https://www.nayuki.io/page/fast-fibonacci-algorithms )
+    /// Calculate Fibonacci number using Matrix Exponentiation
+    /// https://www.nayuki.io/page/fast-fibonacci-algorithms
     /// </summary>
     /// <param name="n"></param>
     /// <returns></returns>

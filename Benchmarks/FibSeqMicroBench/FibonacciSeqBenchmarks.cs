@@ -6,12 +6,12 @@ namespace FibSeqMicroBench;
 
 public class FibonacciSeqBenchmarks
 {
-    [ParamsSource(nameof(NthValues))]
-    public int Nth { get; set; }
+    [ParamsSource(nameof(NthValues))] public int Nth { get; set; }
 
     public static IEnumerable<int> NthValues => ActualFibonacci.Keys;
 
-    private static int RecursionUpperLimit => int.TryParse(Environment.GetEnvironmentVariable("RecursLimit"), out var limit) ? limit : 53;
+    private static int RecursionUpperLimit =>
+        int.TryParse(Environment.GetEnvironmentVariable("RecursLimit"), out var limit) ? limit : 50;
 
     [Benchmark(Baseline = true), BenchmarkCategory("simple", "canonical")]
     public BigInteger FibSeqUsingLoop()
@@ -28,6 +28,7 @@ public class FibonacciSeqBenchmarks
         {
             throw new NotSupportedException($"Recursion will run too long for {Nth}th over {RecursionUpperLimit}th");
         }
+
         var result = FibonacciCore.SequenceLib.FibonacciUsingRecursion(Nth);
         ValidateCorrectness(Nth, result);
         return result;
@@ -77,6 +78,10 @@ public class FibonacciSeqBenchmarks
         { 60, 1548008755920 },
         { 65, 17167680177565 },
         { 70, 190392490709135 },
+        { 71, 308061521170129 },
+        { 72, 498454011879264 },
+        { 73, 806515533049393 },
+        { 74, 1304969544928657 },
         { 75, 2111485077978050 },
         { 80, 23416728348467685 },
         { 85, 259695496911122585 },
@@ -109,7 +114,9 @@ public class FibonacciSeqBenchmarks
         { 260, BigInteger.Parse("971183874599339129547649988289594072811608739584170445") },
         { 270, BigInteger.Parse("119447720249892581203851665820676436622934188700177088360") },
         { 280, BigInteger.Parse("14691098406862188148944207245954912110548093601382197697835") },
+        { 285, BigInteger.Parse("162926777992448823780908130212788963731840407743629812913410") },
         { 290, BigInteger.Parse("1806885656323799249738933639586633513160792578781310139745345") },
+        { 295, BigInteger.Parse("20038668997554240570909178165665757608500558774338041350112205") },
         { 300, BigInteger.Parse("222232244629420445529739893461909967206666939096499764990979600") }
     };
 
@@ -119,7 +126,7 @@ public class FibonacciSeqBenchmarks
         if (ActualFibonacci[Nth] != result)
         {
             throw new ArithmeticException(
-                $"Fibonacci calculation failed, actual {Nth}th is {ActualFibonacci[Nth]}, but calculated is {result}");
+                $"Fibonacci calculation failed, actual {Nth}th is '{ActualFibonacci[Nth]}', but calculated is '{result}'");
         }
     }
 

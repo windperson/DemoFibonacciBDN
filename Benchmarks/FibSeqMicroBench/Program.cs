@@ -10,13 +10,13 @@ class Program
 {
     static void Main(string[] args)
     {
-        var bdnConfig = ManualConfig.Create(DefaultConfig.Instance);
-        bdnConfig.AddJob(
-            Job.ShortRun.WithStrategy(RunStrategy.Throughput)
-                //.WithWarmupCount(1)
-                //.WithIterationCount(5)
-                .WithEnvironmentVariable(new EnvironmentVariable("RecursLimit", "53"))
-                .WithPowerPlan(PowerPlan.UserPowerPlan));
+        var bdnConfig =
+            DefaultConfig.Instance.AddJob(
+                Job.ShortRun.WithStrategy(RunStrategy.Throughput)
+                    .WithIterationCount(5)
+                    .WithEnvironmentVariable(new EnvironmentVariable("RecursLimit", "50"))
+                    .WithPowerPlan(PowerPlan.UserPowerPlan)
+                    .AsDefault());
 
         BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args, bdnConfig);
     }
