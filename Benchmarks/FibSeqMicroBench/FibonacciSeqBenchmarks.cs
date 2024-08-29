@@ -11,7 +11,9 @@ public class FibonacciSeqBenchmarks
     public static IEnumerable<int> NthValues => ActualFibonacci.Keys;
 
     private static int RecursionUpperLimit =>
-        int.TryParse(Environment.GetEnvironmentVariable("RecursLimit"), out var limit) ? limit : 50;
+        int.TryParse(Environment.GetEnvironmentVariable(Const.RecursionUpperLimit), out var limit)
+            ? limit
+            : Const.RecursionUpperLimitValue;
 
     [Benchmark(Baseline = true), BenchmarkCategory("simple", "canonical")]
     public BigInteger FibSeqUsingLoop()
@@ -24,7 +26,7 @@ public class FibonacciSeqBenchmarks
     [Benchmark, BenchmarkCategory("simple", "slow")]
     public BigInteger FibSeqUsingRecursion()
     {
-        if (Nth >= RecursionUpperLimit)
+        if (Nth > RecursionUpperLimit)
         {
             throw new NotSupportedException($"Recursion will run too long for {Nth}th over {RecursionUpperLimit}th");
         }
@@ -73,7 +75,6 @@ public class FibonacciSeqBenchmarks
         { 40, 102334155 },
         { 45, 1134903170 },
         { 50, 12586269025 },
-        { 53, 53316291173 },
         { 55, 139583862445 },
         { 60, 1548008755920 },
         { 65, 17167680177565 },

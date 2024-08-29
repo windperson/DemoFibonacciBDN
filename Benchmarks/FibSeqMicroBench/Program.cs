@@ -14,7 +14,8 @@ class Program
             DefaultConfig.Instance.AddJob(
                 Job.ShortRun.WithStrategy(RunStrategy.Throughput)
                     .WithIterationCount(5)
-                    .WithEnvironmentVariable(new EnvironmentVariable("RecursLimit", "50"))
+                    .WithEnvironmentVariable(new EnvironmentVariable(Const.RecursionUpperLimit,
+                        $"{Const.RecursionUpperLimitValue}"))
                     .WithPowerPlan(PowerPlan.UserPowerPlan)
                     .AsDefault());
 
