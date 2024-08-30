@@ -2,11 +2,10 @@
 using System.Runtime.CompilerServices;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Mathematics;
-using BenchmarkDotNet.Order;
 
 namespace FibSeqMicroBench;
 
-[Orderer(SummaryOrderPolicy.FastestToSlowest)]
+[RPlotExporter]
 [RankColumn(NumeralSystem.Roman)]
 public class FibonacciSeqBenchmarks
 {

@@ -7,7 +7,7 @@ This repository demo using BenchmarkDotNet to benchmark various Fibonacci Sequen
 To quickly run all micro benchmark(s), on root project folder, run:
 
 ```powershell
-dotnet run -c Release --project .\Benchmarks\FibSeqMicroBench\FibSeqMicroBench.csproj -- --warmupcount 1 --runOncePerIteration --filter '*'
+dotnet run -c Release --project ./Benchmarks/FibSeqMicroBench/FibSeqMicroBench.csproj -- --warmupcount 1 --runOncePerIteration --filter '*'
 ```
 
 you can see available micro benchmarks by using postfix `-- --list flat` command line argument.
