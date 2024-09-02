@@ -5,7 +5,6 @@ using BenchmarkDotNet.Mathematics;
 
 namespace FibSeqMicroBench;
 
-[RPlotExporter]
 [RankColumn(NumeralSystem.Roman)]
 public class FibonacciSeqBenchmarks
 {
