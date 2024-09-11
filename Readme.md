@@ -12,4 +12,4 @@ dotnet run -c Release --project ./Benchmarks/FibSeqMicroBench/FibSeqMicroBench.c
 
 you can see available micro benchmarks by using postfix `-- --list flat` command line argument.
 
-By default, the recursion version of benchmark will only run up to 50th Fibonacci number (Because of its slowness), If you want to try out more recursion version benchmark, run with the additional argument `--envVar RecursLimit:[The_upper_limit_you_desired]` appended at end.
+By default, the recursion version of benchmark will only run up to 50th Fibonacci number (Because of its slowness), If you want to try out more recursion version benchmark, run with the additional argument `--envVars RecursLimit:[The_upper_limit_you_desired]` appended at end.
